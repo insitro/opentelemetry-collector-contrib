@@ -62,11 +62,13 @@ func TestAddFileFields(t *testing.T) {
 	cfg.StartAt = "beginning"
 	cfg.IncludeFileName = true
 	cfg.IncludeFilePath = true
+	cfg.IncludeFileOffset = true
 	operator, emitCalls := buildTestManager(t, cfg)
 
 	// Create a file, then start
 	temp := openTemp(t, tempDir)
-	writeString(t, temp, "testlog\n")
+	firstTestString := "testlog\n"
+	writeString(t, temp, firstTestString)
 
 	require.NoError(t, operator.Start(testutil.NewMockPersister("test")))
 	defer func() {
@@ -76,6 +78,11 @@ func TestAddFileFields(t *testing.T) {
 	emitCall := waitForEmit(t, emitCalls)
 	require.Equal(t, filepath.Base(temp.Name()), emitCall.attrs.Name)
 	require.Equal(t, temp.Name(), emitCall.attrs.Path)
+	require.Equal(t, int64(0), emitCall.attrs.Offset)
+
+	writeString(t, temp, "testlog2\n")
+	emitCall = waitForEmit(t, emitCalls)
+	require.Equal(t, int64(len(firstTestString)), emitCall.attrs.Offset)
 }
 
 // AddFileResolvedFields tests that the `log.file.name_resolved` and `log.file.path_resolved` fields are included

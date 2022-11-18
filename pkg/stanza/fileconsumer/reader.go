@@ -84,6 +84,7 @@ func (r *Reader) ReadToEnd(ctx context.Context) {
 		if err != nil {
 			r.Errorw("decode: %w", zap.Error(err))
 		} else {
+			r.fileAttributes.Offset = r.Offset
 			r.emit(ctx, r.fileAttributes, token)
 		}
 
