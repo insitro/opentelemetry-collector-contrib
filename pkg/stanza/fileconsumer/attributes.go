@@ -25,6 +25,7 @@ type FileAttributes struct {
 	Path         string
 	NameResolved string
 	PathResolved string
+	Offset       int64
 }
 
 // resolveFileAttributes resolves file attributes

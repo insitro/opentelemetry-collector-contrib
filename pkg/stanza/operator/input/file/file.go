@@ -82,3 +82,7 @@ func setFileNameResolved(attrs *fileconsumer.FileAttributes, ent *entry.Entry) e
 func setFilePathResolved(attrs *fileconsumer.FileAttributes, ent *entry.Entry) error {
 	return ent.Set(entry.NewAttributeField("log.file.path_resolved"), attrs.PathResolved)
 }
+
+func setFileOffset(attrs *fileconsumer.FileAttributes, ent *entry.Entry) error {
+	return ent.Set(entry.NewAttributeField("log.file.offset"), attrs.Offset)
+}

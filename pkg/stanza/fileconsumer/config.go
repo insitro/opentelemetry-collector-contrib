@@ -37,6 +37,7 @@ func NewConfig() *Config {
 		IncludeFilePath:         false,
 		IncludeFileNameResolved: false,
 		IncludeFilePathResolved: false,
+		IncludeFileOffset:       false,
 		PollInterval:            200 * time.Millisecond,
 		Splitter:                helper.NewSplitterConfig(),
 		StartAt:                 "end",
@@ -53,6 +54,7 @@ type Config struct {
 	IncludeFilePath         bool                  `mapstructure:"include_file_path,omitempty"`
 	IncludeFileNameResolved bool                  `mapstructure:"include_file_name_resolved,omitempty"`
 	IncludeFilePathResolved bool                  `mapstructure:"include_file_path_resolved,omitempty"`
+	IncludeFileOffset       bool                  `mapstructure:"include_file_offset,omitempty"`
 	PollInterval            time.Duration         `mapstructure:"poll_interval,omitempty"`
 	StartAt                 string                `mapstructure:"start_at,omitempty"`
 	FingerprintSize         helper.ByteSize       `mapstructure:"fingerprint_size,omitempty"`

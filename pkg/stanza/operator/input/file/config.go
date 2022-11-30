@@ -67,6 +67,9 @@ func (c Config) Build(logger *zap.SugaredLogger) (operator.Operator, error) {
 	if c.IncludeFilePathResolved {
 		preEmitOptions = append(preEmitOptions, setFilePathResolved)
 	}
+	if c.IncludeFileOffset {
+		preEmitOptions = append(preEmitOptions, setFileOffset)
+	}
 
 	var toBody toBodyFunc = func(token []byte) interface{} {
 		return string(token)
